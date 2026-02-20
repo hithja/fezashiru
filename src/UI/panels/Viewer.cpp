@@ -16,14 +16,17 @@
 #include "UI/panels/Viewer.hpp"
 
 Viewer::Viewer(std::string imagePath, int width, int height) : imagePath(imagePath), width(width), height(height) {
-    this->ret = Image::LoadTextureFromFile(imagePath.c_str(), &imgTxtr, &width, &height);
-    IM_ASSERT(ret);
+    if (!imagePath.empty()) {
+        this->ret = Image::LoadTextureFromFile(imagePath.c_str(), &imgTxtr, &width, &height);
+        IM_ASSERT(ret);
+    }
 }
 
 void Viewer::changeImg(std::string path, int w, int h) {
     this->ret = Image::LoadTextureFromFile(path.c_str(), &imgTxtr, &w, &h);
     this->width=w;
     this->height=h;
+    this->imagePath=path;
     IM_ASSERT(ret);
 }
 
@@ -32,11 +35,12 @@ void Viewer::display() {
         ImGui::SetNextWindowSize(ImVec2(this->width+6, this->height+20), ImGuiCond_FirstUseEver);
         ImGui::Begin("Viewer");
             std::string label = this->imagePath;
-            ImGui::SeparatorText(label.c_str());
+            ImGui::Text(label.c_str());
             ImGui::SameLine();
             if (ImGui::Button("Close")) {
                 toogle(false);
             }
+            ImGui::Separator();
             ImGui::Image((ImTextureID)(intptr_t)imgTxtr, ImVec2(this->width, this->height));
         ImGui::End();
     }

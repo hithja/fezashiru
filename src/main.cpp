@@ -32,7 +32,7 @@ int main() {
     SettingsWin settingsWin;
     Sourcer sourcer;
     Editor editor;
-    Viewer viewer("/home/YOURUSERNAME/Downloads/smthng.jpg", 256, 256);
+    Viewer viewer("", 256, 256);
     ProjectWin projectWin(win, editor);
     ExplorerWin explorer({"all"}, editor, projectWin, viewer);
 
