@@ -7,6 +7,7 @@
 
 #include "core/Events.hpp"
 #include "core/Settings.hpp"
+#include "core/io/Recent.hpp"
 
 #include "UI/base_elements/Tab.hpp"
 #include "UI/panels/Editor.hpp"
@@ -17,6 +18,17 @@ Editor::Editor() {
     this->codeFont=io.Fonts->AddFontFromFileTTF(Settings::codeFont.c_str(), Settings::codeFontSize);
 
     Events::subscribe(EventType::FileSaved, [this]{ this->isSaved=false; });
+}
+
+Editor::~Editor() {
+    Recent recent;
+
+    for (int i = 0; i < tabs.size(); i++) {
+        std::string recentPath = tabs[i].getPath();
+        recent.addFilePath(recentPath);
+    }
+
+    recent.save();
 }
 
 void Editor::display() {

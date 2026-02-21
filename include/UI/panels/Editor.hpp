@@ -14,6 +14,8 @@ class Editor {
         ImFont* codeFont;
     public:
         Editor();
+        ~Editor();
+
         void display();
         void createTab(std::string text, std::string path) { tabs.push_back(Tab(currTabID+1, path, text)); };
         bool isEdited() { return !isSaved; }

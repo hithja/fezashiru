@@ -10,16 +10,22 @@ using json = nlohmann::json;
 
 class Recent {
     private:
-        Editor& editor;
-
-        json recent;
+        json recentData;
+        std::vector<std::string> recent;
     public:
-        Recent(Editor& editor) : editor(editor) {
-            std::ifstream app("./recent.json");
+        Recent() {
+            std::ifstream recentPath("./recent.json");
+            this->recentData = json::parse(recentPath);
+            this->recent = this->recentData["recent"];
         }
-        ~Recent() {
+        void addFilePath(std::string path) {
+            this->recent.push_back(path);
+        }
+        void save() { 
+            this->recentData["recent"] = this->recent;
 
-        }
-        void save() {}
-        json getRecent() {}
+            std::ofstream recentFile("./recent.json");
+            recentFile << this->recentData.dump(4);
+        } 
+        std::vector<std::string> getRecent() { return this->recentData["recent"]; }
 };

@@ -1,4 +1,5 @@
 {
     "autosave": true,
-    "showLogs": true
+    "showLogs": true,
+    "maxRecentFolders": 10
 }

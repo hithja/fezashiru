@@ -5,7 +5,7 @@ class Settings {
     private:
     public:
         inline static std::string name = "Fezashiru";
-        inline static std::string version = "pre-alpha 0226a";
+        inline static std::string version = "pre-alpha 0226a1";
         inline static std::string author = "hithja";
 
         inline static std::string confPath = "./config";

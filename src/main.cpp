@@ -21,6 +21,7 @@
 #include "UI/panels/ExplorerWin.hpp"
 #include "UI/panels/Editor.hpp"
 #include "UI/panels/Viewer.hpp"
+#include "UI/panels/RecentWin.hpp"
 #include "UI/panels/Sourcer.hpp"
 namespace fs = std::filesystem;
 
@@ -34,6 +35,7 @@ int main() {
     Editor editor;
     Viewer viewer("", 256, 256);
     ProjectWin projectWin(win, editor);
+    RecentWin recent;
     ExplorerWin explorer({"all"}, editor, projectWin, viewer);
 
     while(!glfwWindowShouldClose(win.getWin())) {
@@ -47,6 +49,7 @@ int main() {
         settingsWin.display();
         explorer.display();
         editor.display();
+        recent.display();
         projectWin.display();
         viewer.display();
         
